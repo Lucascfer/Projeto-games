@@ -1,0 +1,65 @@
+.gamesCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    margin: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 15px;
+    max-width: 400px;
+    word-break: break-all;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 0.5rem;    
+}
+
+.publisher {
+    font-weight: lighter;
+    font-size: small;
+}
+
+.shortDescription {
+    font-size: small;
+    padding: 1rem;
+    height: 120px;
+    overflow-y: auto;
+}
+
+.icon {
+    background: none;
+    transition: 0.5s;
+    fill: #f7d354;
+}
+
+.link:hover > svg {
+    fill: #242424;
+}
+
+@media screen and (max-width: 500px) {
+    .title{
+        font-size: inherit;
+    }
+    .gameImage {
+        max-width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 300px) {
+    .gamesCard{
+        margin: 1rem 0;
+        padding: 0.5rem;
+        border-radius: 10px;
+    }
+    .gameImage{
+        display: none;
+    }
+}

@@ -1,0 +1,35 @@
+.category {
+    border: 1px solid rgba(255, 255, 255, 0.42);
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 10px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+}
+
+.category>h3 {
+    background: none;
+    transition: color 0.3s ease;
+}
+
+.category:hover {
+    border-color: #cdaf44;
+}
+
+.active {
+    background-color: #cdaf44;
+}
+
+.active>h3 {
+    color: #242424;
+}
+
+.category:active {
+    background-color: #cdaf44;
+}
+
+.category:active>h3 {
+    color: #242424;
+}
