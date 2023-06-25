@@ -6,8 +6,8 @@ import '../Styles/Home.css'
 import '../Styles/Filter.css'
 import { Loading } from "../components/Loading";
 
-const gamesURL = import.meta.env.VITE_API
-const devAddress = import.meta.env.VITE_EMAIL;
+const gamesURL = 'https://games-test-api-81e9fb0d564a.herokuapp.com/api/data/';
+const devAddress = 'emailteste@email.com';
 
 export const Home = () => {
     const [games, setGames] = useState([]);
