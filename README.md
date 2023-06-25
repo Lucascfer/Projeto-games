@@ -14,7 +14,8 @@
 - Uma vez que tenha os dados em mãos, veja quais `genre` foram retornados e permita ao usuário selecionar um deles, e então filtre para exibir apenas jogos do gênero selecionado
 
 ### Print da tela inicial
-![print-projeto(1)](https://github.com/Lucascfer/Projeto-games/assets/110013093/d727db26-1d78-4ba4-a2cd-9407ea73d4d3)
+![print-projeto(1)](https://github.com/Lucascfer/Projeto-games/assets/110013093/5f768084-2682-409b-8076-8be1282f76a7)
+
 
 ### Print da tela de busca
-![print-projeto(2)](https://github.com/Lucascfer/Projeto-games/assets/110013093/e50ffc8f-eff4-4cbd-9c6e-744b51e014da)
+![print-projeto(2)](https://github.com/Lucascfer/Projeto-games/assets/110013093/102e8d10-803c-4cdb-9aa3-09c8928ffb10)
