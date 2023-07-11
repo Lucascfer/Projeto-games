@@ -11,6 +11,50 @@
     word-break: break-all;
 }
 
+.newicons {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.heartIcon {
+    font-size: 30px;
+    margin: 0 10px 10px;
+    width: 10%;
+    border: none;
+}
+
+button.added svg {
+    fill: #ff0000;
+}
+
+.heartIcon svg {
+    fill: rgb(185, 185, 185);  
+    transition: 0.4s;
+}
+
+.heartIcon:hover {
+    cursor: pointer;
+}
+
+.heartIcon:hover svg{
+    cursor: pointer;
+    fill: #a02e2e;
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    font-size: 30px;
+    width: 50%;
+    margin: 0 10px 10px;
+}
+
+.stars:hover {
+    cursor: pointer;
+}
+
 .title {
     font-weight: bold;
     font-size: 30px;
@@ -19,6 +63,18 @@
     text-overflow: ellipsis;
     max-width: 100%;
     padding: 0.5rem;    
+}
+
+
+h2.message {
+    position: absolute;
+    flex-wrap: wrap;
+    width: 300px;
+    font-size: 20px;
+    border-radius: 15px;
+    background-color: #535353f7;
+    padding: 10px;
+    margin-top: 100px;
 }
 
 .publisher {

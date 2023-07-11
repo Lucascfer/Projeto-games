@@ -18,18 +18,30 @@ export const NavBar = () => {
     }
 
     return (
-        <nav className="navbar">
-            <Link className="logo" to="/">
-                <h1 className="title">
-                    Lista de Jogos
-                </h1>
-            </Link>
-            <form className="search" onSubmit={handleSearch}>
-                <input type="text" placeholder="Buscar nome do jogo" onChange={(e) => setSearch(e.target.value)} value={search} />
-                <button type="submit">
-                    <BiSearchAlt2 />
-                </button>
-            </form>
-        </nav>
+        <div className="navbarContainer">
+            <nav className="navbar">
+                <Link className="logo" to="/">
+                    <h1 className="title">
+                        Lista de Jogos
+                    </h1>
+                </Link>
+                <div className="search">
+                    <form className="search" onSubmit={handleSearch}>
+                        <input type="text" placeholder="Buscar nome do jogo" onChange={(e) => setSearch(e.target.value)} value={search} />
+                        <button type="submit">
+                            <BiSearchAlt2 />
+                        </button>
+                    </form>
+                    <div className="buttons">
+                        <Link className='button' to="/auth">
+                            <h2>Login</h2>
+                        </Link>
+                        <Link className='button' to="/favorites">
+                            <h2>Favoritos</h2>
+                        </Link>
+                    </div>
+                </div>
+            </nav>
+        </div>
     )
 }

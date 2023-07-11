@@ -1,0 +1,8 @@
+.auth {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: auto;
+    margin: auto;
+    gap: 10rem;
+}

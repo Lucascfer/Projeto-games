@@ -7,6 +7,32 @@
     word-break: break-all;
 }
 
+.buttons {
+    display: flex;
+    padding: auto;
+    margin: auto 2px;
+}
+
+.button h2 {
+    background: none;
+    transition: 0.4s;
+}
+
+.button {
+    margin: auto 5px;
+    border: none;
+    padding: auto;
+}
+
+.button:hover {
+    border: none;
+    background: none;
+}
+
+.button:hover > h2 {
+    color: #cdaf44;
+}
+
 .logo {
     all: unset;
 }
