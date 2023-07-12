@@ -14,6 +14,7 @@ export const GamesCard = (props) => {
   const { game, actived } = props;
   const [active, setActive] = useState(false)
   const [msg, setMsg] = useState('')
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   function setMessage(msg) {
     setMsg(msg)
@@ -22,17 +23,15 @@ export const GamesCard = (props) => {
       setMsg('');
     }, 3000)
   }
-
+  
   async function addFav(g) {
-    const userEmail = JSON.parse(sessionStorage.getItem("user")).email;
-
-    if (!userEmail) {
+    if (user === 'default') {
       setMessage('Você precisa estar logado para adicionar aos favoritos')
       return
     }
 
     await setDoc(doc(db, "games", `${g.id}`), {
-      email: userEmail,
+      email: user.email,
       image: 'https://www.freetogame.com/g/' + g.id + '/thumbnail.jpg',
       id: g.id,
       title: g.title,
@@ -46,7 +45,6 @@ export const GamesCard = (props) => {
 
   async function deleteFav(g) {
     await deleteDoc(doc(db, "games", `${g.id}`));
-    console.log('foi removido', g.title, g.id)
     setActive(false);
     setMessage(g.title + ' foi removido aos favoritos')
   }
@@ -61,7 +59,7 @@ export const GamesCard = (props) => {
 
   useState(() => {
     setActive(actived)
-  })
+  }, [])
 
   return (
     <>

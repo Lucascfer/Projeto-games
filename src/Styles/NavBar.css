@@ -11,6 +11,7 @@
     display: flex;
     padding: auto;
     margin: auto 2px;
+    cursor: pointer;
 }
 
 .button h2 {

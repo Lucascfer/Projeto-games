@@ -6,3 +6,20 @@
     margin: auto;
     gap: 10rem;
 }
+
+.authPage {
+    display: flex;
+    flex-direction: column;
+}
+
+.authPage > p {
+    font-size: 20px;
+    text-align: center;
+    margin: 20px;
+}
+
+.authPage p a {
+    all:unset;
+    cursor: pointer;
+    color: #f7d354;
+}

@@ -11,6 +11,14 @@
     word-break: break-all;
 }
 
+button {
+    all: unset;
+}
+
+.actived {
+    fill: #cdaf44;
+}
+
 .newicons {
     display: flex;
     text-align: center;

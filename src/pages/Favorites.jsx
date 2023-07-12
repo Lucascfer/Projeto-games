@@ -42,7 +42,7 @@ const Favorites = () => {
                 </h1>
             }
             {
-                favorites.length > 0 &&
+                !loading && favorites.length > 0 &&
                 favorites.map((game) => {
                     return (
                         <div className="favs" key={game.id}>
