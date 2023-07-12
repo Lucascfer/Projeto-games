@@ -28,7 +28,7 @@ export const GamesCard = (props) => {
       }
     })
   }
-  
+
   async function onClickStar(index, g) {
     if (user === 'default') {
       setMessage('Você precisa estar logado para avaliar')

@@ -1,3 +1,29 @@
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pump {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.7);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
 .gamesCard {
     display: flex;
     flex-direction: column;
@@ -9,7 +35,9 @@
     border-radius: 15px;
     max-width: 400px;
     word-break: break-all;
+    animation: fadeIn 0.5s ease-in-out;
 }
+
 
 .stars button {
     all: unset;
@@ -34,10 +62,11 @@
 
 button.added svg {
     fill: #ff0000;
+    animation: pump 0.5s ease-in-out;
 }
 
 .heartIcon svg {
-    fill: rgb(185, 185, 185);  
+    fill: rgb(185, 185, 185);
     transition: 0.4s;
 }
 
@@ -45,7 +74,7 @@ button.added svg {
     cursor: pointer;
 }
 
-.heartIcon:hover svg{
+.heartIcon:hover svg {
     cursor: pointer;
     fill: #a02e2e;
 }
@@ -71,7 +100,7 @@ button.added svg {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
-    padding: 0.5rem;    
+    padding: 0.5rem;
 }
 
 
@@ -114,14 +143,15 @@ h2.messageStar {
     fill: #f7d354;
 }
 
-.link:hover > svg {
+.link:hover>svg {
     fill: #242424;
 }
 
 @media screen and (max-width: 500px) {
-    .title{
+    .title {
         font-size: inherit;
     }
+
     .gameImage {
         max-width: 100%;
     }
@@ -129,12 +159,13 @@ h2.messageStar {
 
 
 @media screen and (max-width: 300px) {
-    .gamesCard{
+    .gamesCard {
         margin: 1rem 0;
         padding: 0.5rem;
         border-radius: 10px;
     }
-    .gameImage{
+
+    .gameImage {
         display: none;
     }
 }
