@@ -11,7 +11,7 @@
     word-break: break-all;
 }
 
-button {
+.stars button {
     all: unset;
 }
 

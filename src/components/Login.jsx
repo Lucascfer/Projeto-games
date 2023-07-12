@@ -18,7 +18,7 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                setMessage("Login efetuado com sucesso!");
+                setMessage("Login efetuado com sucesso!");  
                 sessionStorage.setItem("user", JSON.stringify(user));
             })
             .catch((e) => {

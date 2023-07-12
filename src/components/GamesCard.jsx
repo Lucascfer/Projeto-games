@@ -2,19 +2,44 @@
 import { Link } from "react-router-dom"
 import { BiLinkExternal } from "react-icons/bi"
 import '../Styles/GamesCard.css'
-import { Avaliation } from "./Avaliation"
 import { AiFillHeart } from 'react-icons/ai'
 import { deleteDoc, doc, setDoc } from "firebase/firestore"
 import { db } from "../Services/firebaseConfig"
 import { useState } from "react"
+import { Star } from "./Star"
 
 
 export const GamesCard = (props) => {
-
   const { game, actived } = props;
+
+  const user = JSON.parse(sessionStorage.getItem("user"));
   const [active, setActive] = useState(false)
   const [msg, setMsg] = useState('')
-  const user = JSON.parse(sessionStorage.getItem("user"));
+  const [activeIndex, setActiveIndex] = useState(-1)
+  const stars = [... new Array(4).keys()]
+
+  async function onClickStar(index, g) {
+    if (user === 'default') {
+      setMessage('Você precisa estar logado para avaliar')
+      return
+    }
+    setActiveIndex(
+      (oldState) => oldState === index ? - 1 : index
+    )
+    await setDoc(doc(db, "games", `${g.id}`), {
+      image: 'https://www.freetogame.com/g/' + g.id + '/thumbnail.jpg',
+      id: g.id,
+      title: g.title,
+      publisher: g.publisher,
+      short_description: g.short_description,
+      game_url: g.game_url,
+      activeIndex: index
+    });
+    if(active === false) {
+      setMessage(g.title + ' foi adicionado aos favoritos')
+    }
+    setActive(true);
+  }
 
   function setMessage(msg) {
     setMsg(msg)
@@ -36,7 +61,8 @@ export const GamesCard = (props) => {
       title: g.title,
       publisher: g.publisher,
       short_description: g.short_description,
-      game_url: g.game_url
+      game_url: g.game_url,
+      activeIndex: activeIndex,
     });
     setActive(true);
     setMessage(g.title + ' foi adicionado aos favoritos')
@@ -76,7 +102,11 @@ export const GamesCard = (props) => {
             <AiFillHeart />
           </button>
 
-          <Avaliation/>
+          <div className='stars'>
+            {stars.map(index => (
+              <Star key={index} isActive={index <= activeIndex} onClick={() => onClickStar(index, game)} />
+            ))}
+          </div>
 
         </div>
         <Link className="link" to={game.game_url} target="_blank">Site do jogo <BiLinkExternal className="icon" /></Link>
