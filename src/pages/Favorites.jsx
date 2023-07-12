@@ -26,7 +26,7 @@ const Favorites = () => {
         }
         getCards();
         setLoading(false);
-    })
+    }, [favorites]);
 
     return (
         <div className="favorites">
@@ -46,7 +46,7 @@ const Favorites = () => {
                 favorites.map((game) => {
                     return (
                         <div className="favs" key={game.id}>
-                            <GamesCard game={game} actived={true} />
+                            <GamesCard game={game} favorited={true} rate={game.rating} />
                         </div>
                     )
                 })

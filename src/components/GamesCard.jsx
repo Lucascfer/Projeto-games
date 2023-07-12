@@ -3,21 +3,32 @@ import { Link } from "react-router-dom"
 import { BiLinkExternal } from "react-icons/bi"
 import '../Styles/GamesCard.css'
 import { AiFillHeart } from 'react-icons/ai'
-import { deleteDoc, doc, setDoc } from "firebase/firestore"
+import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore"
 import { db } from "../Services/firebaseConfig"
 import { useState } from "react"
 import { Star } from "./Star"
 
-
 export const GamesCard = (props) => {
-  const { game, actived } = props;
+  const { game, favorited, rate } = props;
 
   const user = JSON.parse(sessionStorage.getItem("user"));
   const [active, setActive] = useState(false)
   const [msg, setMsg] = useState('')
   const [activeIndex, setActiveIndex] = useState(-1)
   const stars = [... new Array(4).keys()]
-
+  
+  const getCards = async () => {
+    const useCollectionRef = collection(db, 'games');
+    const data = await getDocs(useCollectionRef);
+    const docs = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+    docs.map((docgame) => {
+      if(docgame.id == game.id) {
+        setActive(true)
+        setActiveIndex(docgame.rating)
+      }
+    })
+  }
+  
   async function onClickStar(index, g) {
     if (user === 'default') {
       setMessage('Você precisa estar logado para avaliar')
@@ -33,9 +44,9 @@ export const GamesCard = (props) => {
       publisher: g.publisher,
       short_description: g.short_description,
       game_url: g.game_url,
-      activeIndex: index
+      rating: index
     });
-    if(active === false) {
+    if (active === false) {
       setMessage(g.title + ' foi adicionado aos favoritos')
     }
     setActive(true);
@@ -43,7 +54,6 @@ export const GamesCard = (props) => {
 
   function setMessage(msg) {
     setMsg(msg)
-
     setTimeout(() => {
       setMsg('');
     }, 3000)
@@ -62,7 +72,7 @@ export const GamesCard = (props) => {
       publisher: g.publisher,
       short_description: g.short_description,
       game_url: g.game_url,
-      activeIndex: activeIndex,
+      rating: activeIndex,
     });
     setActive(true);
     setMessage(g.title + ' foi adicionado aos favoritos')
@@ -83,7 +93,9 @@ export const GamesCard = (props) => {
   };
 
   useState(() => {
-    setActive(actived)
+    setActive(favorited)
+    setActiveIndex(rate)
+    getCards();
   }, [])
 
   return (
@@ -114,4 +126,8 @@ export const GamesCard = (props) => {
       {msg && <h2 className="message">{msg}</h2>}
     </>
   )
+}
+
+GamesCard.defaultProps = {
+  rate: -1
 }

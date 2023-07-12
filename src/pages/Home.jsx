@@ -95,7 +95,7 @@ export const Home = () => {
                     })
                 }
             </div>
-            {loading === true && !errorMessage && 
+            {loading === true && !errorMessage &&
                 <h1 className='message'>
                     <Loading />
                 </h1>}
@@ -109,7 +109,7 @@ export const Home = () => {
                 loading === false && !errorMessage && filteredGenre.map((game) => {
                     return (
                         <div className="game" key={game.id}>
-                            <GamesCard game={game} actived={false} />
+                            <GamesCard game={game} favorited={false} />
                         </div>
                     )
                 })
