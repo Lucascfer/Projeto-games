@@ -23,10 +23,9 @@ export const GamesCard = (props) => {
       setMsg('');
     }, 3000)
   }
-  
   async function addFav(g) {
     if (user === 'default') {
-      setMessage('Você precisa estar logado para adicionar aos favoritos')
+      setMessage('Você precisa estar logado para favoritar')
       return
     }
 
@@ -69,10 +68,16 @@ export const GamesCard = (props) => {
         <h3 className="publisher" >{game.publisher}</h3>
         <h3 className="shortDescription" >{game.short_description}</h3>
         <div className="newicons">
-          <button className={`heartIcon ${active ? 'added' : ''}`} onClick={() => handleClick(game)}>
+
+          <button
+            className={`heartIcon ${active ? 'added' : ''}`}
+            onClick={() => handleClick(game)}
+          >
             <AiFillHeart />
           </button>
-          <Avaliation />
+
+          <Avaliation/>
+
         </div>
         <Link className="link" to={game.game_url} target="_blank">Site do jogo <BiLinkExternal className="icon" /></Link>
       </div>

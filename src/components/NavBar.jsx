@@ -18,7 +18,7 @@ export const NavBar = () => {
     }
 
     function logOut() {
-        sessionStorage.clear();
+        sessionStorage.setItem("user", JSON.stringify('default'));
         return navigate('/')
     }
 
