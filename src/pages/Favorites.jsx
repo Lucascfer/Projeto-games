@@ -7,6 +7,7 @@ import { Loading } from '../components/Loading';
 
 const Favorites = () => {
     const useCollectionRef = collection(db, 'games');
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     const [message, setMessage] = useState('');
     const [favorites, setFavorites] = useState([]);
@@ -23,6 +24,9 @@ const Favorites = () => {
             else {
                 setFavorites(docs);
             }
+            if (user === 'default') {
+                setMessage('Você precisa estar logado para ver os favoritos');
+            }
         }
         getCards();
         setLoading(false);
@@ -32,7 +36,7 @@ const Favorites = () => {
         <div className="favorites">
             <h1 className='titleFav'>Favoritos</h1>
             {
-                message &&
+                message && 
                 <p className='messageFav'>{message}</p>
             }
             {
@@ -42,11 +46,11 @@ const Favorites = () => {
                 </h1>
             }
             {
-                !loading && favorites.length > 0 &&
+                !loading && favorites.length > 0 && user !== 'default' &&
                 favorites.map((game) => {
                     return (
                         <div className="favs" key={game.id}>
-                            <GamesCard game={game} favorited={true} rate={game.rating} />
+                            <GamesCard game={game}/>
                         </div>
                     )
                 })

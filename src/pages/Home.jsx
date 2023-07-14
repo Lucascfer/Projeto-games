@@ -109,7 +109,7 @@ export const Home = () => {
                 loading === false && !errorMessage && filteredGenre.map((game) => {
                     return (
                         <div className="game" key={game.id}>
-                            <GamesCard game={game} favorited={false} />
+                            <GamesCard game={game}/>
                         </div>
                     )
                 })

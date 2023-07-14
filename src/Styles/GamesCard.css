@@ -51,6 +51,7 @@
     display: flex;
     text-align: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .heartIcon {
@@ -167,5 +168,14 @@ h2.messageStar {
 
     .gameImage {
         display: none;
+    }
+
+    .newicons {
+        flex-direction: column;
+    }
+
+    .stars, .heartIcon {
+        justify-content: center;
+        margin: auto;
     }
 }

@@ -12,6 +12,8 @@
     padding: auto;
     margin: auto 2px;
     cursor: pointer;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .button h2 {
@@ -54,6 +56,7 @@
     justify-content: center;
     margin: auto 0;
     gap: .8rem;
+    flex-wrap: wrap;
 }
 
 .search> input{

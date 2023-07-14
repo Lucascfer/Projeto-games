@@ -8,9 +8,7 @@ import { db } from "../Services/firebaseConfig"
 import { useState } from "react"
 import { Star } from "./Star"
 
-export const GamesCard = (props) => {
-  const { game, favorited, rate } = props;
-
+export const GamesCard = ({game}) => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   const [active, setActive] = useState(false)
   const [msg, setMsg] = useState('')
@@ -22,7 +20,7 @@ export const GamesCard = (props) => {
     const data = await getDocs(useCollectionRef);
     const docs = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
     docs.map((docgame) => {
-      if(docgame.id == game.id) {
+      if(docgame.id == game.id && user !== 'default') {
         setActive(true)
         setActiveIndex(docgame.rating)
       }
@@ -93,8 +91,6 @@ export const GamesCard = (props) => {
   };
 
   useState(() => {
-    setActive(favorited)
-    setActiveIndex(rate)
     getCards();
   }, [])
 
@@ -126,8 +122,4 @@ export const GamesCard = (props) => {
       {msg && <h2 className="message">{msg}</h2>}
     </>
   )
-}
-
-GamesCard.defaultProps = {
-  rate: -1
 }
