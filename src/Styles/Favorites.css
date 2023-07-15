@@ -6,12 +6,17 @@
     max-width: 1800px;
 }
 
-.messageFav, .titleFav {
+.messageFav,
+.titleFav {
     display: flex;
     text-align: center;
     justify-content: center;
     margin: 2rem auto;
     width: 100%;
+}
+
+.titleFav {
+    flex-wrap: wrap;
 }
 
 .messageFav {
@@ -57,4 +62,34 @@
     background: none;
     fill: #000;
     margin: auto 5px;
+}
+
+.favorites > .search {
+    width: 100%;
+    display: flex;
+    margin: 30px auto 0 auto;
+}
+
+.favorites > .search > input {
+    width: 18rem;
+    outline: none;
+}
+
+.closeTab {
+    font-size: 40px;
+    cursor: pointer;
+    position: absolute;
+    margin: 29px 32px;
+    border: none;
+    background: none;
+}
+
+.closeTab:hover svg {
+    fill: #cdaf44;
+}
+
+.closeTab svg {
+    fill: #f7d354;
+    transition: 0.4s;
+    background: none;
 }

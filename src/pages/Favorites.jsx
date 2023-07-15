@@ -5,6 +5,8 @@ import { db } from '../Services/firebaseConfig';
 import { GamesCard } from '../components/GamesCard';
 import { Loading } from '../components/Loading';
 import { IoFilterSharp } from 'react-icons/io5';
+import { BiSearchAlt2 } from 'react-icons/bi';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 const Favorites = () => {
     const useCollectionRef = collection(db, 'games');
@@ -16,11 +18,12 @@ const Favorites = () => {
     const [increaseMode, setIncreaseMode] = useState(true);
     const [categories, setCategories] = useState([]);
     const [selectedCategorys, setSelectedCategories] = useState('');
+    const [search, setSearch] = useState('');
+    const [favSearch, setFavSearch] = useState('');
 
     function increasing(a, b) {
         return a.rating - b.rating;
     }
-
     function decreasing(a, b) {
         return b.rating - a.rating;
     }
@@ -48,6 +51,17 @@ const Favorites = () => {
         setSelectedCategories(category);
     }
 
+    const getGameSearched = (search, favs) => {
+        if (!search) return favs;
+        const favsSearched = favs.filter((g) => g.title.toLowerCase().includes(search.toLowerCase()));
+        setFavSearch(favsSearched);
+    }
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (!search) return;
+        getGameSearched(search, favorites)
+        setSearch('');
+    }
     useEffect(() => {
         setLoading(true);
         const getCards = async () => {
@@ -83,7 +97,7 @@ const Favorites = () => {
             </header>
             <div className="categories">
                 {
-                    !loading && categories.map((cat) => {
+                    !loading && !message && categories.map((cat) => {
                         const isActive = selectedCategorys === cat;
 
                         return (
@@ -98,6 +112,12 @@ const Favorites = () => {
                     })
                 }
             </div>
+            <form className="search" onSubmit={handleSearch}>
+                <input type="text" placeholder="Buscar nome do jogo favoritado" onChange={(e) => setSearch(e.target.value)} value={search} />
+                <button type="submit">
+                    <BiSearchAlt2 />
+                </button>
+            </form>
             {
                 message &&
                 <p className='messageFav'>{message}</p>
@@ -109,7 +129,20 @@ const Favorites = () => {
                 </h1>
             }
             {
-                !loading && favorites.length > 0 && user !== 'default' &&
+                !loading && favSearch.length > 0 && user !== 'default' &&
+                favSearch.map((game) => {
+                    return (
+                        <div className="favs" key={game.id}>
+                            <button className="closeTab" type="button" onClick={() => setFavSearch('')}>
+                                <AiFillCloseCircle/>
+                            </button>
+                            <GamesCard game={game} />
+                        </div>
+                    )
+                })
+            }
+            {
+                !loading && favSearch.length === 0 && favorites.length > 0 && user !== 'default' &&
                 filteredGenre.map((game) => {
                     return (
                         <div className="favs" key={game.id}>
