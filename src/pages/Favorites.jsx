@@ -4,6 +4,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../Services/firebaseConfig';
 import { GamesCard } from '../components/GamesCard';
 import { Loading } from '../components/Loading';
+import { IoFilterSharp } from 'react-icons/io5';
 
 const Favorites = () => {
     const useCollectionRef = collection(db, 'games');
@@ -12,6 +13,15 @@ const Favorites = () => {
     const [message, setMessage] = useState('');
     const [favorites, setFavorites] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [increaseMode, setIncreaseMode] = useState(true);
+
+    function increasing(a, b) {
+        return a.rating - b.rating;
+    }
+
+    function decreasing(a, b) {
+        return b.rating - a.rating;
+    }
 
     useEffect(() => {
         setLoading(true);
@@ -23,6 +33,11 @@ const Favorites = () => {
             }
             else {
                 setFavorites(docs);
+                if (increaseMode) {
+                    docs.sort(increasing);
+                } else {
+                    docs.sort(decreasing);
+                }
             }
             if (user === 'default') {
                 setMessage('Você precisa estar logado para ver os favoritos');
@@ -34,9 +49,15 @@ const Favorites = () => {
 
     return (
         <div className="favorites">
-            <h1 className='titleFav'>Favoritos</h1>
+            <header className='titleFav'>
+                <h1>Favoritos</h1>
+                <button type="button" className="switch" onClick={() => setIncreaseMode(!increaseMode)}>
+                    {increaseMode ? 'Ordem Crescente' : 'Ordem Decrescente'}
+                    <IoFilterSharp style={ increaseMode ? { transform: 'rotate(0deg)' } : { transform: 'rotate(180deg)'}}/>
+                </button>
+            </header>
             {
-                message && 
+                message &&
                 <p className='messageFav'>{message}</p>
             }
             {
@@ -50,7 +71,7 @@ const Favorites = () => {
                 favorites.map((game) => {
                     return (
                         <div className="favs" key={game.id}>
-                            <GamesCard game={game}/>
+                            <GamesCard game={game} />
                         </div>
                     )
                 })

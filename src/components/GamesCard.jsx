@@ -33,7 +33,7 @@ export const GamesCard = ({game}) => {
       return
     }
     setActiveIndex(
-      (oldState) => oldState === index ? - 1 : index
+      (oldState) => oldState === index ? index = -1 : index
     )
     await setDoc(doc(db, "games", `${g.id}`), {
       image: 'https://www.freetogame.com/g/' + g.id + '/thumbnail.jpg',

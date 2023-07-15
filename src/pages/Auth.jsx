@@ -12,11 +12,11 @@ const Auth = () => {
 
     return (
         <div className="auth">
-            {register && <div className="authPage">
+            {!register && <div className="authPage">
                 <Login />
                 <p>Não possui uma conta? <a onClick={() => {switchTab()}}>Cadastre-se</a></p>
             </div>}
-            {!register && <div className="authPage">
+            {register && <div className="authPage">
                 <Register />
                 <p>Possui uma conta? <a onClick={() => {switchTab()}}>Entrar</a></p>
             </div>}

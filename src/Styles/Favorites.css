@@ -21,3 +21,40 @@
 .favs {
     margin: auto;
 }
+
+.titleFav h1 {
+    text-align: center;
+    justify-content: center;
+    margin: auto 0;
+}
+
+.switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    width: auto;
+    margin: 15px;
+    padding: 15px;
+    border: none;
+    background-color: #f7d354;
+    border-radius: 15px;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.4s;
+}
+
+.switch:hover {
+    background-color: #cdaf44;
+}
+
+.switch:active {
+    background-color: #9f8d4c;
+}
+
+.switch svg {
+    background: none;
+    fill: #000;
+    margin: auto 5px;
+}
