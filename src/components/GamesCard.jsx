@@ -8,19 +8,19 @@ import { db } from "../Services/firebaseConfig"
 import { useState } from "react"
 import { Star } from "./Star"
 
-export const GamesCard = ({game}) => {
+export const GamesCard = ({ game }) => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   const [active, setActive] = useState(false)
   const [msg, setMsg] = useState('')
   const [activeIndex, setActiveIndex] = useState(-1)
   const stars = [... new Array(4).keys()]
-  
+
   const getCards = async () => {
     const useCollectionRef = collection(db, 'games');
     const data = await getDocs(useCollectionRef);
     const docs = data.docs.map(doc => ({ ...doc.data(), id: doc.id }));
     docs.map((docgame) => {
-      if(docgame.id == game.id && user !== 'default') {
+      if (docgame.id == game.id && user !== 'default') {
         setActive(true)
         setActiveIndex(docgame.rating)
       }
@@ -42,12 +42,13 @@ export const GamesCard = ({game}) => {
       publisher: g.publisher,
       short_description: g.short_description,
       game_url: g.game_url,
-      rating: index
+      rating: index,
+      genre: g.genre
     });
     if (active === false) {
+      setActive(true);
       setMessage(g.title + ' foi adicionado aos favoritos')
     }
-    setActive(true);
   }
 
   function setMessage(msg) {
@@ -71,6 +72,7 @@ export const GamesCard = ({game}) => {
       short_description: g.short_description,
       game_url: g.game_url,
       rating: activeIndex,
+      genre: g.genre
     });
     setActive(true);
     setMessage(g.title + ' foi adicionado aos favoritos')

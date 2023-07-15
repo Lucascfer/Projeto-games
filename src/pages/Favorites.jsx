@@ -14,6 +14,8 @@ const Favorites = () => {
     const [favorites, setFavorites] = useState([]);
     const [loading, setLoading] = useState(true);
     const [increaseMode, setIncreaseMode] = useState(true);
+    const [categories, setCategories] = useState([]);
+    const [selectedCategorys, setSelectedCategories] = useState('');
 
     function increasing(a, b) {
         return a.rating - b.rating;
@@ -21,6 +23,29 @@ const Favorites = () => {
 
     function decreasing(a, b) {
         return b.rating - a.rating;
+    }
+
+    const getFilteredGenre = (selectedCategorys, games) => {
+        if (!selectedCategorys) return games;
+        return games.filter((game) => game.genre === selectedCategorys);
+    }
+    const getCategories = (games) => {
+        const genres = new Set();
+
+        for (let game of games) {
+            const { genre } = game;
+            if (!genres.has(genre)) {
+                genres.add(genre);
+            }
+        }
+        return [...genres];
+    }
+    const handleSelectedCategories = (category) => {
+        if (selectedCategorys === category) {
+            setSelectedCategories('');
+            return;
+        }
+        setSelectedCategories(category);
     }
 
     useEffect(() => {
@@ -33,11 +58,9 @@ const Favorites = () => {
             }
             else {
                 setFavorites(docs);
-                if (increaseMode) {
-                    docs.sort(increasing);
-                } else {
-                    docs.sort(decreasing);
-                }
+                increaseMode ? docs.sort(increasing) : docs.sort(decreasing);
+                const categories = getCategories(docs);
+                setCategories(categories);
             }
             if (user === 'default') {
                 setMessage('Você precisa estar logado para ver os favoritos');
@@ -47,15 +70,34 @@ const Favorites = () => {
         setLoading(false);
     }, [favorites]);
 
+    const filteredGenre = getFilteredGenre(selectedCategorys, favorites);
+
     return (
         <div className="favorites">
             <header className='titleFav'>
                 <h1>Favoritos</h1>
                 <button type="button" className="switch" onClick={() => setIncreaseMode(!increaseMode)}>
                     {increaseMode ? 'Ordem Crescente' : 'Ordem Decrescente'}
-                    <IoFilterSharp style={ increaseMode ? { transform: 'rotate(0deg)' } : { transform: 'rotate(180deg)'}}/>
+                    <IoFilterSharp style={increaseMode ? { transform: 'rotate(0deg)' } : { transform: 'rotate(180deg)' }} />
                 </button>
             </header>
+            <div className="categories">
+                {
+                    !loading && categories.map((cat) => {
+                        const isActive = selectedCategorys === cat;
+
+                        return (
+                            <div className="filter" key={cat}>
+                                <button
+                                    className={`category ${isActive ? "active" : ""}`}
+                                    onClick={() => handleSelectedCategories(cat)}>
+                                    <h3>{cat}</h3>
+                                </button>
+                            </div>
+                        )
+                    })
+                }
+            </div>
             {
                 message &&
                 <p className='messageFav'>{message}</p>
@@ -68,7 +110,7 @@ const Favorites = () => {
             }
             {
                 !loading && favorites.length > 0 && user !== 'default' &&
-                favorites.map((game) => {
+                filteredGenre.map((game) => {
                     return (
                         <div className="favs" key={game.id}>
                             <GamesCard game={game} />
